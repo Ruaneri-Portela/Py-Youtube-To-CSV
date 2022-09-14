@@ -96,10 +96,12 @@ def NonDuplicated(removeDuplicatedOnList):
         if i not in newNonHaveDuplicate:
             newNonHaveDuplicate.append(i)
     return newNonHaveDuplicate
+
 #Login
-def login():
- loginMode=None
- try:
+#def login():
+
+loginMode=None
+try:
     while(True):
         loginMode=input("Modo API (1) / Modo OAUTH (2) # ~>")
         if(loginMode=="1"):
@@ -110,8 +112,8 @@ def login():
             print("Erro!")
     youtube = Login.Auth.Main(loginMode)
     print("Iniciado com sucesso")
- except:
+except:
     print("API se comportou de forma inesperada!")
- main()
+main()
 
-login()
+#login()
