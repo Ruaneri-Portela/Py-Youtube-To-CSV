@@ -15,9 +15,9 @@ class Auth:
         if Mode == "2":
             credentials = None
             #Check If Token (OAUTH) Exist Or Is Valid
-            if os.path.exists("auth.pickle"):
+            if os.path.exists("token.pickle"):
              print("Carregando credencias do OAUTH do arquivo...")
-             with open("auth.pickle", "rb") as token:
+             with open("token.pickle", "rb") as token:
                 credentials = pickle.load(token)
             
             #Case Token Not Valid, Get New Token
@@ -32,7 +32,7 @@ class Auth:
                 credentials = flow.credentials
 
                 #Save Credential File To Next Run
-                with open("auth.pickle", "wb") as f:
+                with open("token.pickle", "wb") as f:
                  print('Saving Credentials for Future Use...')
                  pickle.dump(credentials, f)
             youtube = build("youtube","v3",credentials=credentials)
