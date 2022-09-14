@@ -3,12 +3,15 @@ import pickle
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+
 class Auth:
     def Main(Mode):
+        # To use non-google auth accont
         if Mode == "1":
             api_key = "AIzaSyA-0KfpLK04NpQN1XghxhSlzG-WkC3DHLs"
             youtube = build("youtube","v3",developerKey=api_key)
             return youtube
+        #To use on google auth on accont
         if Mode == "2":
             credentials = None
             # token.pickle stores the user's credentials from previously successful logins

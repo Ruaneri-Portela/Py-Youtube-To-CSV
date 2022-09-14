@@ -1,4 +1,7 @@
 class dataVideo:
+    #Get data from video or playlist
+    # This script is able to recive playlist or video ID, but need youtube login object, what as content in "Login.py"
+    # The statement is "YoutubeApi" object (if can get from class object in Login.py) , ID (can be video or playlist) and mode (if Id is of playlist or video)
     def getData(youtube,id,mode):  
      nextPage_token = None
      playlist_videos=[]
@@ -37,6 +40,8 @@ class dataVideo:
       video.append(stringLink)
       videoData.append(video)
      return videoData
+    
+    #Test funcition
     def a(youtube,idV):
       #print(youtube.capiions().list(part="statistics",id=idV).execute())
       print(youtube.captions().list(part="snippet",videoId=idV).execute())
