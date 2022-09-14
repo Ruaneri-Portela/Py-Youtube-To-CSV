@@ -1,150 +1,105 @@
 import YoutubeApi
 import Login
-
-#Lang variable
-
-Text=Text2=Text3=Text4=Text5=Text6=Text7=Text8=Text9=Text10=Text11=Text12=Text13=Text14=Text15=Text16=Text17=Text18=Text19=Text20=Text21="null"
-
-# Connect to YoutubeApi, get videos or playlist data list.
+#Connect To YoutubeAPI
 def getVideos(playlistId,mode):
     youtubeImport = YoutubeApi.dataVideo
     return youtubeImport.getData(youtube,playlistId,mode)
-
-# Main loop for script funcitions
+#Main Script loop
 def main():
     listVideo = []
-    print(Text20)
+    #Header
+    print("#######################\nBem vindo ao importador de dados de videos e playlist do youtube")
     while True:
-
+        #Input
         comandVar = ""
         comandVar =input("#~>")
-
-        if (comandVar == Text) or (comandVar == "1"):
-            comandVar = input(f"#%s~>",Text)  
-            if(comandVar == Text10) or (comandVar == "9"):
+        #Append Videos On Playlsit To List
+        if (comandVar == "Ler Playlist") or (comandVar == "1"):
+            comandVar = input("#Id de uma playlist~>")  
+            if(comandVar == "Retornar") or (comandVar == "9"):
                 pass
-            elif(comandVar == Text11) or (comandVar == "0"):
+            elif(comandVar == "Sair") or (comandVar == "0"):
                 break
             else:
                 try:
                  listVideo.extend(getVideos(comandVar,0)) 
                 except:
-                 print(f"%s,%s",Text8,Text12)
-
-        elif (comandVar == Text2) or (comandVar == "2"):
-            comandVar = input(f"#%s~>",Text)  
-            if(comandVar == Text10) or (comandVar == "9"):
+                 print("Ocorreu um erro! Tente novamente.")
+        #Append Single Video To List
+        elif (comandVar == "Ler Video") or (comandVar == "2"):
+            comandVar = input("#Id de um video~>")  
+            if(comandVar == "Retornar") or (comandVar == "9"):
                 pass
-            elif(comandVar == Text11) or (comandVar == "0"):
+            elif(comandVar == "Sair") or (comandVar == "0"):
                 break
             else:
                 try:
                  listVideo.extend(getVideos(comandVar,1)) 
                 except:
-                 print(f"%s,%s",Text8,Text12)
-
-        elif  (comandVar == Text3) or (comandVar == "3"):
+                 print("Ocorreu um erro! Tente novamente.")
+        #View Video List
+        elif  (comandVar == "Mostrar lista de videos importados") or (comandVar == "3"):
             for i in range(0,len(listVideo)):
                 print(listVideo[i])
-                print(f"%d, %s",len[i],Text14)
-
-        elif (comandVar == Text4) or (comandVar == "4"):
-            comandVar = input(Text9)
-            if(comandVar == Text10) or (comandVar == "9"):
+        #Export To CSV File
+        elif (comandVar == "Exportar dados para um arquivo") or (comandVar == "4"):
+            comandVar = input("Qual o nome do arquivo? ATENÇÃO caso o arquivo exista ele vai ser substituido\n#Exportar lista~>")
+            if(comandVar == "Retornar") or (comandVar == "9"):
                 pass
-            elif(comandVar == Text11) or (comandVar == "0"):
+            elif(comandVar == "Sair") or (comandVar == "0"):
                 break
             else:
                 csv = open(comandVar+".csv","w") 
-                csv.write(Text15)
+                csv.write("Titulo▎isualizações▎Gosteis▎Comentarios▎Data De Publicação▎Link\n")
                 nonDup=NonDuplicated(listVideo)
                 for i in  range(0,len(nonDup)):
                   stringLine = nonDup[i][0]+"▎"+nonDup[i][1]+"▎"+nonDup[i][2]+"▎"+nonDup[i][3]+"▎"+nonDup[i][4]+"▎"+nonDup[i][5]+"\n"
                   csv.write(stringLine)
                 csv.close()
-
-        elif  (comandVar == Text16) or (comandVar == "8"):
-            listaVideo = []
-            print(Text17)
-
-        #This function is for testing purposes
-        elif (comandVar == "Test/Teste") or (comandVar == "99"):
-            comandVar = input("#Test/Teste~>")  
-            if(comandVar == Text10) or (comandVar == "9"):
+        #Clean Video List Data
+        elif (comandVar == "Limpar Lista") or (comandVar == "7"):
+            listVideo=[]
+            print("Lista limpa!")
+        #Teste Only
+        elif (comandVar == "Teste") or (comandVar == "99"):
+            comandVar = input("#Teste~>")  
+            if(comandVar == "Retornar") or (comandVar == "9"):
                 pass
-            elif(comandVar == Text11) or (comandVar == "0"):
+            elif(comandVar == "Sair") or (comandVar == "0"):
                 break
             else:
                 try:
                  print(YoutubeApi.dataVideo.a(youtube,comandVar))
                 except:
-                 print(f"%s,%s",Text8,Text12)
-
-        elif (comandVar == Text11) or (comandVar == "0"):
-            print("\n",Text5)
+                 print("Ocorreu um erro! Tente novamente.")
+        #Exit script
+        elif (comandVar == "Sair") or (comandVar == "0"):
+            print("Adeus")
             break
+        #Erro statement if input command not found
         else:
-            print(Text13)
+            print("Comando não encontrado")
+#Remove Duplicated On List
+def NonDuplicated(lista):
+    l = []
+    for i in lista:
+        if i not in l:
+            l.append(i)
+    return l
 
-# Remove duplicates from list       
-def NonDuplicated(listToRemoveDuplicates):
-    listTemp = []
-    for i in listToRemoveDuplicates:
-        if i not in listTemp:
-            listTemp.append(i)
-    return listTemp
-
-#Localization script
-def setLang(langVar):
-    #langVar = ""
-    #langVar = input("Select language/Selecione o idioma\n1~> English | 2~> Português")
-    while True:
-     if(langVar == "English") or (langVar == "1"):
-        break
-     elif(langVar == "Português") or (langVar == "2"):
-        Text = "Adcionar ao aquivo uma playlist"
-        Text2 = "Adcionar ao arquivo um unico video"
-        Text3 = "Listar objetos a serem gravados"
-        Text4 = "Gravar arquivo"
-        Text5 = "Adeus !"
-        Text6 = "API de login se comportou de forma inesperada"
-        Text7 = "Necessario encerrar o script"
-        Text8 = "Ocorreu um erro!"
-        Text9 = "Qual o nome do arquivo?\nAtenção caso o nome do arquivo existir o existente ira ser substiuido"
-        Text10 = "Retornar"
-        Text11 = "Sair"
-        Text12 = "Tente Novemente"
-        Text13 = "Opção não disponivel"
-        Text14 = "Videos foram gravados para serem exportados para o arquivos"
-        Text15 = "Titulo▎Visualizações▎Gosteis▎Comentarios▎Data De Publicação▎Link\n"
-        Text16 = "Limpar lista de exportação"
-        Text17 = "A lista de videos a serem exportados foram apagados"
-        Text18 = "Ajuda"
-        Text19 = "Ajuda Menu"
-        Text20 = "###################\nBem-Vindo ao exportado de estatisticas de videos do youtube em python"
-        Text21 = "Iniciado com sucesso"
-        break
-     else:
-        print("Option not supported! / Opção não suportada!")
-
-# Startup Script
-setLang("2")
+#Login
 loginMode=None
 try:
     while(True):
-        loginMode=input("#")
+        loginMode=input("Modo API (1) / Modo OAUTH (2) # ~>")
         if(loginMode=="1"):
             break
         elif(loginMode=="2"):
             break
         else:
-            print(Text8)
+            print("Erro!")
     youtube = Login.Auth.Main(loginMode)
-    print(Text21)
-    try:
-     main()
-    except:
-     print(f"%s, %s",Text8,Text7)
-     exit(1)
+    print("Iniciado com sucesso")
 except:
-    print(f"%s, %s",Text6,Text7)
+    print("API se comportou de forma inesperada!")
+main()
