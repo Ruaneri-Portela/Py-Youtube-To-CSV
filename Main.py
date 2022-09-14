@@ -80,13 +80,12 @@ def main():
         else:
             print("Comando não encontrado")
 #Remove Duplicated On List
-def NonDuplicated(lista):
-    l = []
-    for i in lista:
-        if i not in l:
-            l.append(i)
-    return l
-
+def NonDuplicated(removeDuplicatedOnList):
+    newNonHaveDuplicate = []
+    for i in removeDuplicatedOnList:
+        if i not in newNonHaveDuplicate:
+            newNonHaveDuplicate.append(i)
+    return newNonHaveDuplicate
 #Login
 loginMode=None
 try:
