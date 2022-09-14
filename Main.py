@@ -41,6 +41,7 @@ def main():
         elif  (comandVar == "Mostrar lista de videos importados") or (comandVar == "3"):
             for i in range(0,len(listVideo)):
                 print(listVideo[i])
+            print("Existem ",len(listVideo)," videos importados")
         #Export To CSV File
         elif (comandVar == "Exportar dados para um arquivo") or (comandVar == "4"):
             comandVar = input("Qual o nome do arquivo? ATENÇÃO caso o arquivo exista ele vai ser substituido\n#Exportar lista~>")
@@ -56,6 +57,7 @@ def main():
                   stringLine = nonDup[i][0]+"▎"+nonDup[i][1]+"▎"+nonDup[i][2]+"▎"+nonDup[i][3]+"▎"+nonDup[i][4]+"▎"+nonDup[i][5]+"\n"
                   csv.write(stringLine)
                 csv.close()
+            print("Dados exportados em",comandVar+".csv")
         #Clean Video List Data
         elif (comandVar == "Limpar Lista") or (comandVar == "7"):
             listVideo=[]
@@ -72,13 +74,21 @@ def main():
                  print(YoutubeApi.dataVideo.a(youtube,comandVar))
                 except:
                  print("Ocorreu um erro! Tente novamente.")
+        #Help informations
+        elif (comandVar == "Ajuda") or (comandVar == "8"):
+            print("Tela de Ajuda:\n1 -> Ler uma Playlist\n2 -> Ler um video\n3 -> Listar videos importados\n4 -> Exportar para um arquivo os dados dos videos importados\n7 -> Limpar lista de videos importados\n8 -> Ajuda \n9 -> Retornar para tela de login\n0 -> Sair\n ")
+        #Return to login
+        elif (comandVar == "Login") or (comandVar == "9"):
+            print("Voltando para tela de login")
+            login()
+            break
         #Exit script
         elif (comandVar == "Sair") or (comandVar == "0"):
             print("Adeus")
             break
         #Erro statement if input command not found
         else:
-            print("Comando não encontrado")
+            print("Comando não encontrado\n(8) Tela de Ajuda")
 #Remove Duplicated On List
 def NonDuplicated(removeDuplicatedOnList):
     newNonHaveDuplicate = []
@@ -87,8 +97,9 @@ def NonDuplicated(removeDuplicatedOnList):
             newNonHaveDuplicate.append(i)
     return newNonHaveDuplicate
 #Login
-loginMode=None
-try:
+def login():
+ loginMode=None
+ try:
     while(True):
         loginMode=input("Modo API (1) / Modo OAUTH (2) # ~>")
         if(loginMode=="1"):
@@ -99,6 +110,8 @@ try:
             print("Erro!")
     youtube = Login.Auth.Main(loginMode)
     print("Iniciado com sucesso")
-except:
+ except:
     print("API se comportou de forma inesperada!")
-main()
+ main()
+
+login()
