@@ -8,7 +8,9 @@ class Auth:
     def Main(Mode):
         # To use non-google auth accont
         if Mode == "1":
-            api_key = ""
+            with open("api_key.dat") as f:
+             api_key = f.read()
+             f.close()
             youtube = build("youtube","v3",developerKey=api_key)
             return youtube
         #To use on google auth on accont
