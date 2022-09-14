@@ -42,6 +42,6 @@ class dataVideo:
      return videoData
     
     #Test funcition
-    def a(youtube,idV):
+    #def a(youtube,idV):
       #print(youtube.capiions().list(part="statistics",id=idV).execute())
-      print(youtube.captions().list(part="snippet",videoId=idV).execute())
+      #print(youtube.captions().list(part="snippet",videoId=idV).execute())
