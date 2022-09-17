@@ -50,7 +50,7 @@ class dataVideo:
             video.append(Unlike.main(listId[i]))
             video.append(stats2[i]["statistics"]["commentCount"])
             video.append(stats1[i]["snippet"]["publishedAt"])
-            stringLink = "https://www.youtube.com/watch?v="+listId[i]
+            stringLink = "https://youtu.be/"+listId[i]
             video.append(stringLink)
             videoData.append(video)
         # Return List Contanin Video(s) Data!
