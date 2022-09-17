@@ -19,17 +19,17 @@ class Auth:
             credentials = None
             # Check If Token Pickle (Googe Login) Exist
             if os.path.exists("token.pickle"):
-                print("Loading Credentials From File...")
+                print("Carregando Credenciais...")
                 with open("token.pickle", "rb") as token:
                     credentials = pickle.load(token)
 
             # Case Not, Re-get Google Credential
             if not credentials or not credentials.valid:
                 if credentials and credentials.expired and credentials.refresh_token:
-                    print("Refreshing Access Token...")
+                    print("Recarregando Credenciais...")
                     credentials.refresh(Request())
                 else:
-                    print("Fetching New Tokens...")
+                    print("Obtendo novo login")
                     flow = InstalledAppFlow.from_client_secrets_file(
                         "auth.json", scopes=['https://www.googleapis.com/auth/youtube'])
                     flow.run_local_server(
@@ -38,7 +38,7 @@ class Auth:
 
                     # Save Credential For Next Run
                     with open("token.pickle", "wb") as f:
-                        print('Saving Credentials for Future Use...')
+                        print("Salvando credenciais para um login futuro")
                         pickle.dump(credentials, f)
             youtube = build("youtube", "v3", credentials=credentials)
             return youtube

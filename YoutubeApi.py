@@ -5,7 +5,7 @@ class dataVideo:
     # Get data from video or playlist
     # This script is able to recive playlist or video ID, but need youtube login object, what as content in "Login.py"
     # The statement is "YoutubeApi" object (if can get from class object in Login.py) , ID (can be video or playlist) and mode (if Id is of playlist or video)
-    def getData(youtube, id, mode, listIndex):
+    def getData(youtube, id, mode, listIndex, listaVideo):
         nextPage_token = None
         playlist_videos = []
         listId = []
@@ -47,20 +47,28 @@ class dataVideo:
             stats3 += reply["items"]
         # Set New List From Videos Informations
         for i in range(0, tam):
-            print("Importando...", i+1, "de", tam)
-            video = []
-            video.append(listIndex)
-            video.append(stats1[i]["snippet"]["title"])
-            video.append(stats2[i]["statistics"]["viewCount"])
-            video.append(stats2[i]["statistics"]["likeCount"])
-            video.append(Unlike.main(listId[i], True))
-            video.append(stats2[i]["statistics"]["commentCount"])
-            video.append(stats3[i]["contentDetails"]["duration"])
-            video.append(stats1[i]["snippet"]["publishedAt"])
-            stringLink = "https://youtu.be/"+listId[i]
-            video.append(stringLink)
-            videoData.append(video)
-            listIndex = listIndex+1
+            tamCheck = len(listaVideo)
+            boolCheck = False
+            for l in range(0, tamCheck):
+                if ((str(listId[i]) == str(listaVideo[l][8]).replace("https://youtu.be/", "")) and tamCheck > 0):
+                    boolCheck = True
+            if (boolCheck):
+                print("Item já importado, pulando!")
+            else:
+                print("Importando...", i+1, "de", tam)
+                video = []
+                video.append(listIndex)
+                video.append(stats1[i]["snippet"]["title"])
+                video.append(stats2[i]["statistics"]["viewCount"])
+                video.append(stats2[i]["statistics"]["likeCount"])
+                video.append(Unlike.main(listId[i], True))
+                video.append(stats2[i]["statistics"]["commentCount"])
+                video.append(stats3[i]["contentDetails"]["duration"])
+                video.append(stats1[i]["snippet"]["publishedAt"])
+                stringLink = "https://youtu.be/"+listId[i]
+                video.append(stringLink)
+                videoData.append(video)
+                listIndex = listIndex+1
         # Return List Contanin Video(s) Data!
         print("Importação completa!")
         return videoData
