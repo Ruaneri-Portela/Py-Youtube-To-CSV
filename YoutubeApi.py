@@ -1,4 +1,6 @@
 import Unlike
+
+
 class dataVideo:
     # Get data from video or playlist
     # This script is able to recive playlist or video ID, but need youtube login object, what as content in "Login.py"
@@ -27,20 +29,20 @@ class dataVideo:
         # Add Single Video To Get Data
         elif mode == 1:
             listId.append(id)
-        #Get Part One Of Data
+        # Get Part One Of Data
         tam = len(listId)
-        for i in range(0,tam):
+        for i in range(0, tam):
             reply = youtube.videos().list(
                 part="snippet", id=listId[i]).execute()
             stats1 += reply["items"]
-        #Get Part Two Of Data
+        # Get Part Two Of Data
         for i in range(0, tam):
             reply = youtube.videos().list(
                 part="statistics", id=listId[i]).execute()
             stats2 += reply["items"]
-        #Set New List From Videos Informations
+        # Set New List From Videos Informations
         for i in range(0, tam):
-            print("Importando...",i+1,"de",tam)
+            print("Importando...", i+1, "de", tam)
             video = []
             video.append(stats1[i]["snippet"]["title"])
             video.append(stats2[i]["statistics"]["viewCount"])
@@ -51,6 +53,6 @@ class dataVideo:
             stringLink = "https://www.youtube.com/watch?v="+listId[i]
             video.append(stringLink)
             videoData.append(video)
-        #Return List Contanin Video(s) Data!
+        # Return List Contanin Video(s) Data!
         print("Importação completa!")
         return videoData
