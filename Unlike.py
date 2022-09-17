@@ -1,4 +1,3 @@
-from ast import Return
 import json, requests
 def main(videoId):
  headers = {"Github/Ruaneri-Portela": "Py-Youtube-To-CSV",}
