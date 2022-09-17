@@ -15,7 +15,7 @@ def getVideos(playlistId, mode):
 # Main Script loop
 def main():
     listVideo = []
-    headerCSV = "Titulo|Visualizações|Gosteis|Não Gosteis|Comentarios|Data De Publicação|Link\n"
+    headerCSV = "Titulo|Visualizações|Gosteis|Não Gosteis|Comentarios|Duração|Data De Publicação|Link\n"
     # Header
     print("#######################\nBem vindo ao importador de dados de videos e playlist do youtube")
     while True:
@@ -65,7 +65,7 @@ def main():
                 nonDup = NonDuplicated(listVideo)
                 for i in range(0, len(nonDup)):
                     stringLine = nonDup[i][0].replace(
-                        "|", " , ")+"|"+nonDup[i][1]+"|"+nonDup[i][2] + "|"+nonDup[i][3]+"|"+nonDup[i][4]+"|"+nonDup[i][5]+"|"+nonDup[i][6]+"\n"
+                        "|", " , ")+"|"+nonDup[i][1]+"|"+nonDup[i][2] + "|"+nonDup[i][3]+"|"+nonDup[i][4]+"|"+nonDup[i][5]+"|"+nonDup[i][6]+"|"+nonDup[i][7]+"\n"
                     csv.write(stringLine)
                 csv.close()
             print("Dados exportados em", comandVar+".csv")

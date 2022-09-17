@@ -11,7 +11,7 @@ class dataVideo:
         listId = []
         stats1 = []
         stats2 = []
-        videos = []
+        stats3 = []
         videoData = []
         # To Get Data Of One Playlist (Get All Videos ID)
         print("Iniciando importação! Aguarde...")
@@ -40,6 +40,11 @@ class dataVideo:
             reply = youtube.videos().list(
                 part="statistics", id=listId[i]).execute()
             stats2 += reply["items"]
+        # Get Content Details
+        for i in range(0, tam):
+            reply = youtube.videos().list(
+                part="contentDetails", id=listId[i]).execute()
+            stats3 += reply["items"]
         # Set New List From Videos Informations
         for i in range(0, tam):
             print("Importando...", i+1, "de", tam)
@@ -49,6 +54,7 @@ class dataVideo:
             video.append(stats2[i]["statistics"]["likeCount"])
             video.append(Unlike.main(listId[i]))
             video.append(stats2[i]["statistics"]["commentCount"])
+            video.append(stats3[i]["contentDetails"]["duration"])
             video.append(stats1[i]["snippet"]["publishedAt"])
             stringLink = "https://youtu.be/"+listId[i]
             video.append(stringLink)
