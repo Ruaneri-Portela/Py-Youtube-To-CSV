@@ -1,5 +1,7 @@
+from email import header
 import YoutubeApi
 import Login
+import sys
 
 returnVar = True
 loginMode = None
@@ -14,6 +16,7 @@ def getVideos(playlistId, mode):
 # Main Script loop
 def main():
     listVideo = []
+    headerCSV = "Titulo|Visualizações|Gosteis|Não Gosteis|Comentarios|Data De Publicação|Link\n"
     # Header
     print("#######################\nBem vindo ao importador de dados de videos e playlist do youtube")
     while True:
@@ -59,12 +62,11 @@ def main():
                 break
             else:
                 csv = open(comandVar+".csv", "w")
-                csv.write(
-                    "Titulo▎Visualizações▎Gosteis▎Comentarios▎Data De Publicação▎Link\n")
+                csv.write(headerCSV)
                 nonDup = NonDuplicated(listVideo)
                 for i in range(0, len(nonDup)):
-                    stringLine = nonDup[i][0]+"▎"+nonDup[i][1]+"▎"+nonDup[i][2] + \
-                        "▎"+nonDup[i][3]+"▎"+nonDup[i][4]+"▎"+nonDup[i][5]+"\n"
+                    stringLine = nonDup[i][0].replace(
+                        "|", " , ")+"|"+nonDup[i][1]+"|"+nonDup[i][2] + "|"+nonDup[i][3]+"|"+nonDup[i][4]+"|"+nonDup[i][5]+"|"+nonDup[i][6]+"\n"
                     csv.write(stringLine)
                 csv.close()
             print("Dados exportados em", comandVar+".csv")
@@ -79,12 +81,11 @@ def main():
         elif (comandVar == "Login") or (comandVar == "9"):
             print("Voltando para tela de login")
             youtube.close()
-            returnVar=True
-            break
+            return True
         # Exit script
         elif (comandVar == "Sair") or (comandVar == "0"):
             print("Adeus")
-            break
+            return False
         # Erro statement if input command not found
         else:
             print("Comando não encontrado\n(8) Tela de Ajuda")
@@ -99,19 +100,22 @@ def NonDuplicated(removeDuplicatedOnList):
     return newNonHaveDuplicate
 
 
-while (returnVar):
-    returnVar = True
-    try:
-        while (True):
-            loginMode = input("Modo API (1) / Modo OAUTH (2) # ~>")
-            if (loginMode == "1"):
-                break
-            elif (loginMode == "2"):
-                break
-            else:
-                print("Erro!")
-        youtube = Login.Auth.Main(loginMode)
-        print("Iniciado com sucesso")
-    except:
-        print("API se comportou de forma inesperada!")
-    main()
+try:
+    while (returnVar):
+        loginMode = input("Modo API (1) / Modo OAUTH (2) # ~>")
+        if (loginMode == "1"):
+            youtube = Login.Auth.Main(loginMode)
+            print("Iniciado com sucesso")
+            returnVar = main()
+            pass
+        elif (loginMode == "2"):
+            youtube = Login.Auth.Main(loginMode)
+            print("Iniciado com sucesso")
+            returnVar = main()
+            pass
+        elif (loginMode == "0"):
+            break
+        else:
+            print("Erro!")
+except:
+    print("API se comportou de forma inesperada!")
