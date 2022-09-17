@@ -1,14 +1,17 @@
 import YoutubeApi
 import Login
+
+returnVar = True
+loginMode = None
 # Connect To YoutubeAPI
 
 
 def getVideos(playlistId, mode):
     youtubeImport = YoutubeApi.dataVideo
     return youtubeImport.getData(youtube, playlistId, mode)
+
+
 # Main Script loop
-
-
 def main():
     listVideo = []
     # Header
@@ -57,7 +60,7 @@ def main():
             else:
                 csv = open(comandVar+".csv", "w")
                 csv.write(
-                    "Titulo▎|Visualizações▎Gosteis▎Comentarios▎Data De Publicação▎Link\n")
+                    "Titulo▎Visualizações▎Gosteis▎Comentarios▎Data De Publicação▎Link\n")
                 nonDup = NonDuplicated(listVideo)
                 for i in range(0, len(nonDup)):
                     stringLine = nonDup[i][0]+"▎"+nonDup[i][1]+"▎"+nonDup[i][2] + \
@@ -69,25 +72,14 @@ def main():
         elif (comandVar == "Limpar Lista") or (comandVar == "7"):
             listVideo = []
             print("Lista limpa!")
-        # Teste Only
-        elif (comandVar == "Teste") or (comandVar == "99"):
-            comandVar = input("#Teste~>")
-            if (comandVar == "Retornar") or (comandVar == "9"):
-                pass
-            elif (comandVar == "Sair") or (comandVar == "0"):
-                break
-            else:
-                try:
-                    print(YoutubeApi.dataVideo.a(youtube, comandVar))
-                except:
-                    print("Ocorreu um erro! Tente novamente.")
         # Help informations
         elif (comandVar == "Ajuda") or (comandVar == "8"):
             print("Tela de Ajuda:\n1 -> Ler uma Playlist\n2 -> Ler um video\n3 -> Listar videos importados\n4 -> Exportar para um arquivo os dados dos videos importados\n7 -> Limpar lista de videos importados\n8 -> Ajuda \n9 -> Retornar para tela de login\n0 -> Sair\n ")
         # Return to login
         elif (comandVar == "Login") or (comandVar == "9"):
             print("Voltando para tela de login")
-            login()
+            youtube.close()
+            returnVar=True
             break
         # Exit script
         elif (comandVar == "Sair") or (comandVar == "0"):
@@ -96,9 +88,9 @@ def main():
         # Erro statement if input command not found
         else:
             print("Comando não encontrado\n(8) Tela de Ajuda")
+
+
 # Remove Duplicated On List
-
-
 def NonDuplicated(removeDuplicatedOnList):
     newNonHaveDuplicate = []
     for i in removeDuplicatedOnList:
@@ -106,24 +98,20 @@ def NonDuplicated(removeDuplicatedOnList):
             newNonHaveDuplicate.append(i)
     return newNonHaveDuplicate
 
-# Login
-# def login():
 
-
-loginMode = None
-try:
-    while (True):
-        loginMode = input("Modo API (1) / Modo OAUTH (2) # ~>")
-        if (loginMode == "1"):
-            break
-        elif (loginMode == "2"):
-            break
-        else:
-            print("Erro!")
-    youtube = Login.Auth.Main(loginMode)
-    print("Iniciado com sucesso")
-except:
-    print("API se comportou de forma inesperada!")
-main()
-
-# login()
+while (returnVar):
+    returnVar = True
+    try:
+        while (True):
+            loginMode = input("Modo API (1) / Modo OAUTH (2) # ~>")
+            if (loginMode == "1"):
+                break
+            elif (loginMode == "2"):
+                break
+            else:
+                print("Erro!")
+        youtube = Login.Auth.Main(loginMode)
+        print("Iniciado com sucesso")
+    except:
+        print("API se comportou de forma inesperada!")
+    main()

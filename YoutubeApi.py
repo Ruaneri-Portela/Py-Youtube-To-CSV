@@ -1,3 +1,4 @@
+import Unlike
 class dataVideo:
     # Get data from video or playlist
     # This script is able to recive playlist or video ID, but need youtube login object, what as content in "Login.py"
@@ -10,7 +11,8 @@ class dataVideo:
         stats2 = []
         videos = []
         videoData = []
-
+        # To Get Data Of One Playlist (Get All Videos ID)
+        print("Iniciando importação! Aguarde...")
         if mode == 0:
             while True:
                 reply = youtube.playlistItems().list(part="snippet", playlistId=id,
@@ -22,30 +24,33 @@ class dataVideo:
             for i in range(0, len(playlist_videos)):
                 listId.append(
                     playlist_videos[i]["snippet"]["resourceId"]["videoId"])
+        # Add Single Video To Get Data
         elif mode == 1:
             listId.append(id)
-
-        for i in range(0, len(listId)):
+        #Get Part One Of Data
+        tam = len(listId)
+        for i in range(0,tam):
             reply = youtube.videos().list(
                 part="snippet", id=listId[i]).execute()
             stats1 += reply["items"]
-        for i in range(0, len(listId)):
+        #Get Part Two Of Data
+        for i in range(0, tam):
             reply = youtube.videos().list(
                 part="statistics", id=listId[i]).execute()
             stats2 += reply["items"]
-        for i in range(0, len(listId)):
+        #Set New List From Videos Informations
+        for i in range(0, tam):
+            print("Importando...",i+1,"de",tam)
             video = []
             video.append(stats1[i]["snippet"]["title"])
             video.append(stats2[i]["statistics"]["viewCount"])
             video.append(stats2[i]["statistics"]["likeCount"])
+            video.append(Unlike.main(listId[i]))
             video.append(stats2[i]["statistics"]["commentCount"])
             video.append(stats1[i]["snippet"]["publishedAt"])
             stringLink = "https://www.youtube.com/watch?v="+listId[i]
             video.append(stringLink)
             videoData.append(video)
+        #Return List Contanin Video(s) Data!
+        print("Importação completa!")
         return videoData
-
-    # Test funcition
-    # def a(youtube,idV):
-        # print(youtube.capiions().list(part="statistics",id=idV).execute())
-        # print(youtube.captions().list(part="snippet",videoId=idV).execute())

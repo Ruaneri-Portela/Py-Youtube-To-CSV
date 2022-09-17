@@ -17,13 +17,13 @@ class Auth:
         # To use on google auth on accont
         if Mode == "2":
             credentials = None
-            # token.pickle stores the user's credentials from previously successful logins
+            # Check If Token Pickle (Googe Login) Exist
             if os.path.exists("token.pickle"):
                 print("Loading Credentials From File...")
                 with open("token.pickle", "rb") as token:
                     credentials = pickle.load(token)
 
-            # If there are no valid credentials available, then either refresh the token or log in.
+            # Case Not, Re-get Google Credential
             if not credentials or not credentials.valid:
                 if credentials and credentials.expired and credentials.refresh_token:
                     print("Refreshing Access Token...")
@@ -36,7 +36,7 @@ class Auth:
                         port=58698, prompt="consent", authorization_prompt_message="")
                     credentials = flow.credentials
 
-                    # Save the credentials for the next run
+                    # Save Credential For Next Run
                     with open("token.pickle", "wb") as f:
                         print('Saving Credentials for Future Use...')
                         pickle.dump(credentials, f)
