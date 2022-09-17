@@ -1,4 +1,3 @@
-from email import header
 import YoutubeApi
 import Login
 import sys
