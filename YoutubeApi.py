@@ -60,9 +60,18 @@ class dataVideo:
                 video.append(listIndex)
                 video.append(stats1[i]["snippet"]["title"])
                 video.append(stats2[i]["statistics"]["viewCount"])
-                video.append(stats2[i]["statistics"]["likeCount"])
-                video.append(Unlike.main(listId[i], True))
-                video.append(stats2[i]["statistics"]["commentCount"])
+                try:
+                    video.append(stats2[i]["statistics"]["likeCount"])
+                except:
+                    video.append("Indisponivel!")
+                try:
+                    video.append(Unlike.main(listId[i], True))
+                except:
+                    video.append("Indisponivel!")
+                try:
+                    video.append(stats2[i]["statistics"]["commentCount"])
+                except:
+                    video.append("Indisponivel!")
                 video.append(stats3[i]["contentDetails"]["duration"])
                 video.append(stats1[i]["snippet"]["publishedAt"])
                 stringLink = "https://youtu.be/"+listId[i]

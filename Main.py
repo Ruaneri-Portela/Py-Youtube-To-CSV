@@ -16,7 +16,7 @@ def getVideos(playlistId, mode, listIndex, listVideo):
 def main():
     listIndex = 0
     listVideo = []
-    headerCSV = "#|Titulo|Visualizações|Gosteis|Não Gosteis|Comentarios|Duração|Data De Publicação|Link\n"
+    headerCSV = "#,Titulo,Visualizações,Gosteis,Não Gosteis,Comentarios,Duração,Data De Publicação,Link\n"
     # Header
     print("#######################\nBem vindo ao importador de dados de videos e playlist do youtube")
     while True:
@@ -138,6 +138,10 @@ def erro(statment, code):
     else:
         print("Erro Fatal"+code)
 
+class API:
+    def getInformation(id,youtube):
+     getVideos(comandVar, 1, listIndex, listVideo)
+     return(getVideos(comandVar, 1, listIndex, listVideo))
 
 try:
     while (returnVar):
